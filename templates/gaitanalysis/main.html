@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>智能鞋垫平台|用户中心</title>
+    <link rel="stylesheet" type="text/css" href="/site_static/gaitanalysis_static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/site_static/gaitanalysis_static/css/style.css">
+    <script type="text/javascript" src="/site_static/gaitanalysis_static/js/jquery.js"></script>
+    <script type="text/javascript" src="/site_static/gaitanalysis_static/js/highcharts.js"></script>
+    <script type="text/javascript" src="/site_static/gaitanalysis_static/js/main.js"></script>
+    <!--[if lte IE 8]>
+    <script src="/site_static/gaitanalysis_static/js/excanvas.js"></script>
+    <![endif]-->
+    <!--<script>var result = {{ result|safe }};</script>-->
+</head>
+
+<body>
+   {% if not user.is_authenticated %}
+   {% include 'homepage/login.html' %}
+   {% else %}
+    <div class="p_common">
+        <div class="sider">
+            <div class="logo"><img src="/site_static/gaitanalysis_static/img/logo.png"></div>
+            <div class="bar">
+                <div class="avatar"><img src="/site_static/gaitanalysis_static/img/avatar.png"></div>
+                <div class="account">
+                    <div class="wrapper">{{ user.first_name }}<b class="icon icon_arrow"></b>
+                        <ul class="dropmeun">
+                            <li><a class="c_w">{{ user.first_name }}</a></li>
+                            <li><a href="/homepage/userprofile/" class="c_r">我的档案</a></li>
+                            <li><a href="/homepage/logout/" class="c_r">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="menu">
+                    <li class="active">
+                        <a href="/analysis/index/">
+                            <b class="icon icon_home"></b>
+                            <span class="name">首页</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/analysis/record/">
+                            <b class="icon icon_list"></b>
+                            <span class="name">记录</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            
+    <div class="p_home">
+        <div class="w_query">
+            <label class="query_field">
+                <b class="icon icon_alarm"></b><span class="value">开始时间</span>
+                <div class="drop">
+                    <b></b>
+                </div>
+                <input id="starttime" name="starttime" autocomplete="off">
+            </label>
+
+            <label class="query_field">
+                <b class="icon icon_alarm"></b><span class="value">结束时间</span>
+                <div class="drop">
+                    <b></b>
+                </div>
+                <input id="endtime" name="endtime" autocomplete="off">
+            </label>
+
+            <button type="submit" class="submit" onclick="time_query()"><b class="icon icon_search"></b></button>
+        </div>
+
+        <div class="w_navi">
+            <div class="ico"><b class="icon icon_calendar"></b></div>
+            <ul>
+                <li id="time0" class="active"><a onclick="change_time(0)">最近一周</a></li>
+                <li id="time1"><a onclick="change_time(1)">最近1个月</a></li>
+                <li id="time2"><a onclick="change_time(2)">最近3个月</a></li>
+                <li id="time3"><a onclick="change_time(3)">最近半年</a></li>
+            </ul>
+        </div>
+        <div class="w_summary">
+        </div>
+
+        <ul class="type">
+            <li id="d_li" class="active"><a onclick="change_li(2)"><b class="icon icon_time"></b><span>时间</span></a></li>
+            <li id="e_li"><a onclick="change_li(1)"><b class="icon icon_grd"></b><span>能量</span></a></li>
+            <li id="s_li"><a onclick="change_li(0)"><b class="icon icon_step"></b><span>计步</span></a></li>
+        </ul>
+        <div class="chart">
+            <div id="graph_step"></div>
+
+            <div id="graph_other"></div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="/site_static/gaitanalysis_static/css/jquery-ui.min.css">
+    <script type="text/javascript" src="/site_static/gaitanalysis_static/js/jquery-ui.min.js"></script>
+
+        </div>
+    </div>
+
+
+   <script type="text/javascript">
+    (function() {
+        $('.sider .account .wrapper').on('click', function(e) {
+            var target = $(e.currentTarget);
+
+            target.addClass('active');
+            $(window).one('click', function() {
+                target.removeClass('active');
+            });
+
+            return false;
+        });
+         $('.sider .account .wrapper a').on('click', function(e) {
+            e.stopPropagation();
+        });
+    })();
+    </script>
+{% endif %}
+</body>
+</html>

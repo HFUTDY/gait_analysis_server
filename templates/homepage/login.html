@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>智能鞋垫平台|用户登录</title>
+
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/style.css">
+    <script type="text/javascript" src="/site_static/homepage_static/js/jquery.js"></script>
+</head>
+<body>
+    <div class="p_bg">
+        <img src="/site_static/homepage_static/img/bg.jpg" id="bg">
+    <div class="p_login large">
+        <div class="logo">
+            <img src="/site_static/homepage_static/img/logo.png">
+        </div>
+        <div class="form">
+            <form action="/homepage/login/" method="post">
+                <ul>
+                    <li>
+                        <div class="name"> <b class="icon icon_account"></b> </div>
+                        <div class="addon"> <b class="icon icon_pass"></b> </div>
+                        <div class="field">
+                            <input class="input" type="text"  id="user_name" name="user_name"
+                                   {% if username %} value= {{ username }} >{% else %}placeholder="请输入密码" >{% endif %}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="name"> <b class="icon icon_password"></b> </div>
+                        <div class="addon"> <b class="icon icon_warning"></b> </div>
+                        <div class="field">
+                            <input class="input" type="password"  id="user_pwd" name="user_pwd"
+                                   {% if password %} value={{ password }}>{% else %}placeholder="请输入密码">{% endif %}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="name"></div>
+                        <div class="addon"></div>
+                        <div class="field forget">
+                            <label> <input type="checkbox" checked value="user_select" id="remember_pwd" name="remember_pwd">&#x2003;记住密码</label>
+                            <a href="/admin/password_reset/">忘记密码&#xFF1F;</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="submit" type="submit">登&#x2003;&#x2003;&#x2003;录</button>
+                <div class="split_line"></div>
+                <a href="/homepage/register/" class="tologin">注册新账号</a>
+                <div class="wrapper"><a href="#" class="toback"> <b class="e_arr"></b></a></div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+    <script type="text/javascript">
+    (function() {
+        var bg = $('#bg');
+        var oWidth = 1920;
+        var oHeight = 1080;
+        var oRadio = oWidth / oHeight;
+
+        var bgImgPosition = function() {
+            var windowWidth = $('.p_bg').width();
+            var windowHeight = $('.p_bg').height();
+
+            if(windowWidth / windowHeight > oRadio) {
+                var w = windowWidth;
+                var h = w / oRadio;
+                var mt = (windowHeight - h) / 2;
+                var ml = 0;
+            } else {
+                var h = windowHeight;
+                var w = h * oRadio;
+                var mt = 0;
+                var ml = (windowWidth - w) / 2;
+            }
+
+            bg.css({
+                width: w,
+                height: h,
+                marginLeft: ml,
+                marginTop: mt
+            });
+        };
+
+        bgImgPosition();
+        // 保证宽高比
+        $(window).on('resize', bgImgPosition);
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>智能鞋垫平台|修改个人资料</title>
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/style.css">
+    <script type="text/javascript" src="/site_static/homepage_static/js/jquery.js"></script>
+    <script type="text/javascript" src="/site_static/homepage_static/js/modify.js"></script>
+    <!--[if lte IE 8]>
+    <script src="/site_static/homepage_static/js/excanvas.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="p_common">
+        <div class="sider">
+            <div class="logo"><img src="/site_static/homepage_static/img/logo.png"></div>
+            <div class="bar">
+                <div class="avatar"><img src="/site_static/homepage_static/img/avatar.png"></div>
+                <div class="account">
+                    <div class="wrapper">{{user.first_name}}<b class="icon icon_arrow"></b>
+                        <ul class="dropmeun">
+                            <li><a class="c_w">{{user.first_name}}</a></li>
+                            <li><a href="/homepage/userprofile/" class="c_r">我的档案</a></li>
+                            <li><a href="/homepage/logout/" class="c_r">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="menu">
+                    <li class="active">
+                        <a href="/analysis/index/"><b class="icon icon_home"></b><span class="name">首页</span></a>
+                    </li>
+                    <li>
+                        <a href="/analysis/record/"><b class="icon icon_list"></b><span class="name">记录</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            
+    <div class="p_profill">
+        <div class="header"><b class="icon icon_file"></b><span>我的档案</span></div>
+        <div class="info">
+            <div class="avatar">
+                <label><img src="/site_static/homepage_static/img/avatar.png">
+                    <span class="upload">头像</span><input type="file"></label>
+            </div>
+            <div class="trace">
+                <div class="name">昵&#x2002;&#x2002;称：{{user.first_name}}</div>
+               <!-- <div class="reg_time">注册时间<span>2016-05-07</span></div> -->
+                <div class="login_time">上次登录<span>{{ user.last_login|date:"Y-m-d H:i:s"}}</span></div>
+            </div>
+        </div>
+        <div class="grid_name">
+            <b class="icon icon_edit"></b><span>修改信息</span>
+        </div>
+        <div class="form">
+            <ul>
+                <form action="/homepage/modifyPassword/" method="post" onsubmit="return checkPWD();">
+                    <li><div class="g1">原始密码</div>
+                        <div class="g2"><input type="password" class="input" name="oldpwd" id="oldpwd"></div>
+                        <b class="icon" id="pwd_error1"></b>
+                    </li>
+                    <li><div class="g1">新&#x2002;密&#x2002;码</div>
+                        <div class="g2"><input type="password" class="input" name="newpwd1" id="newpwd1" placeholder="密码至少为6位数字或英文字母"></div>
+                    </li>
+                    <li><div class="g1">确认密码</div>
+                        <div class="g2"><input type="password" class="input" name="newpwd2" id="newpwd2"  placeholder="再次输入密码" onblur="checkPWD()"></div>
+                        <b class="icon" id="pwd_error2"></b>
+                    </li>
+                    <li>
+                        <div class="g1">   </div>
+                        <div class="g2"><button class="btn" type="submit">修改密码</button></div>
+                    </li>
+                </form>
+            </ul>
+
+            <div class="split"></div>
+
+            <ul>
+                <form action="/homepage/modifyInformation/" method="post" onsubmit="return modify_check();">
+                    <li>
+                        <div class="g1">昵&#x3000;&#x3000;称</div>
+                        <div class="g2"><input type="text" class="input" name="user_nickname" id="user_nickname" value={{ result.nickname }}></div>
+                        <div class="g1 ml60">体&#x3000;&#x3000;重</div>
+                        <div class="g4"><input type="text" class="input" name="user_weight" id="user_weight" value={{ result.user_weight }}></div>
+                        <span class="tx">千克</span>
+                        <div class="g1 ml60">身&#x3000;&#x3000;高</div>
+                        <div class="g4"><input type="text" class="input" name="user_height" id="user_height" value={{ result.user_height }}></div>
+                        <span class="tx">公分</span>
+                    </li>
+                    <li><div class="g1">性&#x3000;&#x3000;别</div>
+                        <div class="g2 tx">
+                            <label><input type="radio" name="user_sex" value="M">男</label>&#x3000;&#x3000;
+                            <label><input type="radio" name="user_sex" value="F" >女</label>
+                        </div>
+                        <script type="text/javascript">
+                            var s = document.getElementsByName("user_sex");
+                            if(s[0].value == {{ sex|safe }}){
+                                s[0].checked =  'checked';
+                            }
+                            else{
+                                s[1].checked =  'checked';
+                            }
+                        </script>
+                    </li>
+                    <li>
+                        <div class="g1">出生年月</div>
+                        <div class="g2 tx">
+                            <select id="year" name="year">
+                            </select>
+                            <select id="month" name="month">
+                            </select>
+                        </div>
+                        <script>
+                            var year = {{ result.year }}-1980;
+                            var month = {{ result.month }}-1;
+                        </script>
+                    </li>
+                    <li>
+                        <div class="g1">E-mail</div>
+                        <div class="g2"><input type="text" class="input" name="user_email" id="user_email" value={{ result.email }}></div>
+                    </li>
+                    <li>
+                        <div class="g1"></div>
+                        <div class="g2"><button class="btn" type="submit" onclick="return 1">确认修改</button></div>
+                    </li>
+                </form>
+            </ul>
+        </div>
+    </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function() {
+        $('.sider .account .wrapper').on('click', function(e) {
+            var target = $(e.currentTarget);
+
+            target.addClass('active');
+            $(window).one('click', function() {
+                target.removeClass('active');
+            });
+
+            return false;
+        });
+        $('.sider .account .wrapper a').on('click', function(e) {
+            e.stopPropagation();
+        });
+    })();
+    </script>
+</body>
+</html>

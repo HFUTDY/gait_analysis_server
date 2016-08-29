@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>智能鞋垫平台|用户注册</title>
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/site_static/homepage_static/css/style.css">
+    <script type="text/javascript" src="/site_static/homepage_static/js/jquery.js"></script>
+    <script type="text/javascript" src="/site_static/homepage_static/js/register.js"></script>
+</head>
+<body>
+    <div class="p_bg">
+        <img src="/site_static/homepage_static/img/bg.jpg" id="bg">
+        
+    <div class="p_login">
+        <div class="logo">
+            <img src="/site_static/homepage_static/img/logo.png">
+        </div>
+
+        <div class="form">
+            <form action="/homepage/register/" method="post" onsubmit="return check();">
+                <ul>
+                    <li>
+                        <div class="name">用户名</div>
+                        <div class="addon"> <b class="icon" id="error" name="error"></b> </div>
+                        <div class="field">
+                            <input type="text" class="input" id="user_name" name="user_name" onblur="checkUsername()" placeholder="请输入不长于30的用户名"></div>
+                    </li>
+                    <li>
+                        <div class="name">密码</div>
+                        <div class="addon"></div>
+                        <div class="field">
+                            <input type="password" class="input" id="user_pwd1" name="user_pwd1" placeholder="密码至少为5位数字或英文字母"> </div>
+                    </li>
+                    <li>
+                        <div class="name">再输入</div>
+                        <div class="addon"><b class="icon" id="pwd_error"></b> </div>
+                        <div class="field">
+                            <input type="password" class="input" id="user_pwd2" name = "user_pwd2" onblur="checkPWD()" placeholder="再次输入密码"></div>
+                    </li>
+                    <li>
+                        <div class="name">昵称 </div>
+                         <div class="addon"></div>
+                        <div class="field">
+                            <input type="text" class="input" id="user_nickname" name="user_nickname" placeholder="请输入昵称"></div>
+                    </li>
+                    <li>
+                        <div class="name">身高 </div>
+                        <div class="addon">  <span class="unit">&#x5398;&#x7C73;</span> </div>
+                        <div class="field">
+                            <input type="text" class="input" id="user_height" name="user_height" placeholder="请输入身高"></div>
+                    </li>
+                    <li>
+                        <div class="name">体重 </div>
+                        <div class="addon"> <span class="unit">&#x5343;&#x514B;</span> </div>
+                        <div class="field">
+                            <input type="text" class="input" id="user_weight" name="user_weight" placeholder="请输入体重">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="name"> 性别 </div>
+                        <div class="addon"> </div>
+                        <div class="field radio">
+                            <label> <input type="radio" name = "user_sex" value="M" checked>男</label>
+                            <label> <input type="radio" name = "user_sex" value="F">女 </label> </div>
+                    </li>
+                    <li>
+                        <div class="name">生日</div>
+                        <div class="addon"> </div>
+                        <div class="field">
+                            <select id="year" name="year"></select>
+                            <span class="unit">年</span>
+                            <select id="month" name="month"></select>
+                            <span class="unit">月</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="name">Email</div>
+                        <div class="addon"></div>
+                        <div class="field">
+                            <input type="text" class="input" id="user_email" name="user_email" placeholder="邮箱地址用于密码找回">
+                        </div>
+                    </li>
+                </ul>
+                <button class="submit" type="submit">注&nbsp;&nbsp;&nbsp;册</button>
+            </form>
+            <div class="split_line"></div>
+            <a href="/homepage/index/" class="tologin">已有账号，现在登录 </a>
+            <div class="wrapper"> <a href="#" class="toback"> <b class="e_arr"></b> </a> </div>
+        </div>
+    </div>
+
+    </div>
+    <script type="text/javascript">
+    (function() {
+        var bg = $('#bg');
+        var oWidth = 1920;
+        var oHeight = 1080;
+        var oRadio = oWidth / oHeight;
+
+        var bgImgPosition = function() {
+            var windowWidth = $('.p_bg').width();
+            var windowHeight = $('.p_bg').height();
+
+            if(windowWidth / windowHeight > oRadio) {
+                var w = windowWidth;
+                var h = w / oRadio;
+                var mt = (windowHeight - h) / 2;
+                var ml = 0;
+            } else {
+                var h = windowHeight;
+                var w = h * oRadio;
+                var mt = 0;
+                var ml = (windowWidth - w) / 2;
+            }
+
+            bg.css({
+                width: w,
+                height: h,
+                marginLeft: ml,
+                marginTop: mt
+            });
+        };
+
+        bgImgPosition();
+        // 保证宽高比
+        $(window).on('resize', bgImgPosition);
+    })();
+    </script>
+</body>
+</html>
